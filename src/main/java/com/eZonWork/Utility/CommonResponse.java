@@ -1,6 +1,6 @@
 package com.eZonWork.Utility;
 
-import java.util.Date;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +17,6 @@ public class CommonResponse<T> {
 	
 	private String message;
 	
-	private String errorMessage;
 	
 	private T data;
 	
@@ -36,12 +35,11 @@ public class CommonResponse<T> {
 	    }
 	
 	
-	public static <T> CommonResponse<T> of(String statusCode, String statusMessage, String message,String errorMessage,T data) {
+	public static <T> CommonResponse<T> of(String statusCode, String statusMessage, String message,T data) {
 	        CommonResponse<T> response = new CommonResponse<>();
 	        response.setStatusCode(statusCode); 
 	        response.setStatusMessage(statusMessage);
 	        response.setMessage(message);
-	        response.setErrorMessage(errorMessage);
 	        response.setData(data);
 	        if(!statusCode.equals("200")) {
 	        	response.setTimeStamp(CommonUtility.timeStamp());
@@ -49,4 +47,15 @@ public class CommonResponse<T> {
 	        
 	        return response;
 	    }
+	
+	public static <T> CommonResponse<T> of(String statusCode, String statusMessage,String message)
+	{
+		CommonResponse<T> response = new CommonResponse<>();
+		 response.setStatusCode(statusCode); 
+	        response.setStatusMessage(statusMessage);
+	        response.setMessage(message); 
+	        response.setTimeStamp(CommonUtility.timeStamp());
+	        
+	        return response;
+	}
 }

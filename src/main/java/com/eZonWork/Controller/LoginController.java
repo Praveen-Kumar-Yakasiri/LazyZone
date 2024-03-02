@@ -38,7 +38,7 @@ public class LoginController {
 		}
 		AuthResponse authResponse=new AuthResponse();
 		authResponse.setAccessToken(token);
-		return CommonResponse.of(CommonConstant.SuccessCode, CommonConstant.Success,"Token Generated Successfully", null, authResponse);
+		return CommonResponse.of(CommonConstant.SuccessCode, CommonConstant.Success,"Token Generated Successfully", authResponse);
 	}
 
 }

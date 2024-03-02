@@ -18,7 +18,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.eZonWork.JwtFilter.JwtFilter;
-import com.eZonWork.JwtService.JwtEntryPoint;
 
 
 @Configuration
@@ -29,8 +28,7 @@ public class SecurityConfig {
 	@Autowired
 	private JwtFilter filter;
 	
-	@Autowired
-	private JwtEntryPoint entryPoint;
+	
 	
 	
  
@@ -62,7 +60,7 @@ public class SecurityConfig {
 		return security.csrf(csrf->csrf.disable()).cors(cors->cors.disable())
 				.authorizeHttpRequests(auth->auth.requestMatchers("/log/loginUser","/common/loginAsAdmin","/common/saveOrUpdateUser").permitAll()
 						.anyRequest().authenticated())
-				.exceptionHandling(ex -> ex.authenticationEntryPoint(entryPoint))
+				.exceptionHandling(ex -> ex.disable())
 				.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authenticationProvider())			
 				.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
