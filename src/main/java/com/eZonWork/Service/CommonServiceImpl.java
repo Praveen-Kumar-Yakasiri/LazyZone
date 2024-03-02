@@ -45,10 +45,10 @@ public CommonResponse<UserInfo> saveOrUpdateUser(UserInfo userDetails) throws Un
 			
 		}
 		userDetails= detailsRepo.save(userDetails);
-		return CommonResponse.of(CommonConstant.SuccessCode,CommonConstant.Success,"Data Saved Successfully",null,userDetails);
+		return CommonResponse.of(CommonConstant.SuccessCode,CommonConstant.Success,"Data Saved Successfully",userDetails);
 	}catch(Exception ex) {
 		
-		return CommonResponse.of(CommonConstant.ErrorCode,CommonConstant.Error,"Data Saved UnSuccessful",ex.getMessage(),null);
+		return CommonResponse.of(CommonConstant.ErrorCode,CommonConstant.Error,"Data Saved UnSuccessful",ex.getMessage());
 	}	
 	
 }
@@ -59,10 +59,10 @@ public CommonResponse<UserInfo> getUserById(Integer userId) {
 	try {
 		UserInfo userInfo=detailsRepo.findById(userId).get();
 		
-			return CommonResponse.of(CommonConstant.SuccessCode,CommonConstant.Success,"Data Fetched Successfully",null,userInfo);
+			return CommonResponse.of(CommonConstant.SuccessCode,CommonConstant.Success,"Data Fetched Successfully",userInfo);
 	
         }catch(Exception ex) {
-	        return CommonResponse.of(CommonConstant.ErrorCode,CommonConstant.Error,"Data Fetched UnSuccessful",ex.getMessage(),null);
+	        return CommonResponse.of(CommonConstant.ErrorCode,CommonConstant.Error,"Data Fetched UnSuccessful",ex.getMessage());
 	   }
 	
 	
@@ -76,9 +76,9 @@ public CommonResponse<UserInfo> deleteUserById(Integer userId) {
 		   if(response.getStatusCode().equals("200")) {
 			   detailsRepo.deleteById(userId);
 				
-				return CommonResponse.of(CommonConstant.SuccessCode,CommonConstant.Success,"Data Deleted Successfully",null,null);
+				return CommonResponse.of(CommonConstant.SuccessCode,CommonConstant.Success,"Data Deleted Successfully",null);
 		   }else {
-			   return CommonResponse.of(CommonConstant.ErrorCode,CommonConstant.Error,"Data Deleted UnSuccessful",response.getErrorMessage(),null);
+			   return CommonResponse.of(CommonConstant.ErrorCode,CommonConstant.Error,"Data Deleted UnSuccessful");
 		   }
 		    
 	        

@@ -3,12 +3,14 @@ package com.eZonWork.JwtFilter;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import com.eZonWork.Configurations.UserDetailsServiceInfo;
 import com.eZonWork.JwtService.JwtService;
@@ -26,14 +28,18 @@ public class JwtFilter extends OncePerRequestFilter {
 	
 	@Autowired
 	private UserDetailsServiceInfo info;
-
+	
+	
+	@Autowired @Qualifier("handlerExceptionResolver") private HandlerExceptionResolver exceptionResolver;
+    
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String token=null;
 		String userName=null;
 		String auth=request.getHeader("Authorization");
-		
+		try {
 		if(auth!=null && auth.startsWith("Bearer ")) {
 			token=auth.substring(7);
 			
@@ -50,6 +56,9 @@ public class JwtFilter extends OncePerRequestFilter {
 			}
 		}
 		filterChain.doFilter(request, response);
+		}catch(Exception exception) {
+			exceptionResolver.resolveException(request, response, null, exception);
+		}
 	}
 
 }

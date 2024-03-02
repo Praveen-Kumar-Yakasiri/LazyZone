@@ -28,7 +28,7 @@ public class JwtService {
 	public String createToken(HashMap<String,Object> claims, String userName) {
 		// TODO Auto-generated method stub
 		return Jwts.builder()
-//				.setIssuer(ISSUER)
+				.setIssuer(ISSUER)
 				.setSubject(userName)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis()+1000*60*3))
