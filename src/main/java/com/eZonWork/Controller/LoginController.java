@@ -31,13 +31,16 @@ public class LoginController {
 	
 	@PostMapping("/loginUser")
 	public CommonResponse<AuthResponse> login(@RequestBody UserLogin login){
-		String token=null;
+//		String token=null;
+		AuthResponse authResponse=null;
 		Authentication authentication=manager.authenticate(new UsernamePasswordAuthenticationToken(login.getUserName(), login.getPassWord()));
 		if(authentication.isAuthenticated()) {
-			token=jwtService.generateToken(login.getUserName());
+//			token=jwtService.generateToken(login.getUserName());
+			 authResponse=jwtService.generateTokens(login.getUserName());
+			 authResponse.setAccessToken(authResponse.getAccessToken());
+			 authResponse.setAccessToken(authResponse.getRefreshToken());
 		}
-		AuthResponse authResponse=new AuthResponse();
-		authResponse.setAccessToken(token);
+				
 		return CommonResponse.of(CommonConstant.SuccessCode, CommonConstant.Success,"Token Generated Successfully", authResponse);
 	}
 

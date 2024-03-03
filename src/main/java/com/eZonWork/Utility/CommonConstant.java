@@ -1,7 +1,12 @@
 package com.eZonWork.Utility;
 
+import java.text.SimpleDateFormat;
+
+
 public class CommonConstant {
 
+	//AUTHOR PRAVEEN KUMAR
+	
 	public final static String Success="SUCCESS";
 	
 	public final static String Error="ERROR";
@@ -19,6 +24,19 @@ public class CommonConstant {
 	public final static String UnauthorizedCode="401";
 	
 	public final static String JWTEXPIRATION="JWT Token Is Expired. Please Login Agian.....!";
+	
+	
+	//Added by PRAVEEN KUMAR 03-03-2024
+	//DESC: Status for Active AND DeActive
+	public final static String IS_ACTIVE="1";
+	public final static String IS_DEAVTIVE="0";
+	
+	
+	// DATE FORMATER ADDED By PRAVEEN KUMAR 03-03-2024
+	
+	public final static SimpleDateFormat DATE_FORMATER_WITH_TIME=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	
+	public final static SimpleDateFormat DATE_FORMATER_WITHOUT_TIME=new SimpleDateFormat("dd-MM-yyyy");
 	
 	
 	

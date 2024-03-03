@@ -28,14 +28,15 @@ public class CommonController {
 	
 	
 	@GetMapping("/loginAsUser")
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasAuthority('USER')")
 	public String loginAsUser() {
 		
 		return "Welcome to the User...!";
 	}
 	
 	
-	@GetMapping("/loginAsAdmin")	
+	@GetMapping("/loginAsAdmin")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String loginAsAdmin() {
 		
 		return "Welcome to the Admin...!";

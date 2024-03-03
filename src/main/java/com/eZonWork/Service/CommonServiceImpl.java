@@ -57,7 +57,7 @@ public CommonResponse<UserInfo> saveOrUpdateUser(UserInfo userDetails) throws Un
 @Override
 public CommonResponse<UserInfo> getUserById(Integer userId) {
 	try {
-		UserInfo userInfo=detailsRepo.findById(userId).get();
+		UserInfo userInfo=detailsRepo.findById(userId).orElseThrow();
 		
 			return CommonResponse.of(CommonConstant.SuccessCode,CommonConstant.Success,"Data Fetched Successfully",userInfo);
 	
