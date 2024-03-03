@@ -1,6 +1,7 @@
 package com.eZonWork.Controller;
 
 import java.net.UnknownHostException;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,47 +25,33 @@ public class CommonController {
 
 	@Autowired
 	private CommonService commonService;
-	
-	
-	
-	@GetMapping("/loginAsUser")
-	@PreAuthorize("hasAuthority('USER')")
-	public String loginAsUser() {
-		
-		return "Welcome to the User...!";
+
+
+	@GetMapping("/getAllRegister")
+	public CommonResponse<List<UserInfo>> getAllRegister() {
+		return commonService.getAllRegister();
 	}
-	
-	
-	@GetMapping("/loginAsAdmin")
-	@PreAuthorize("hasAuthority('ADMIN')")
-	public String loginAsAdmin() {
-		
-		return "Welcome to the Admin...!";
-	}
-	
-	@PostMapping("/saveOrUpdateUser")
+
+	@PostMapping("/saveUser")
 	public CommonResponse<UserInfo> saveOrUpdateUser(@RequestBody UserInfo userDetails) throws UnknownHostException {
-		
+
 		return commonService.saveOrUpdateUser(userDetails);
-		
+
 	}
-	
+
+	@PostMapping("/updateUser")
+	public CommonResponse<UserInfo> updateUser(@RequestBody UserInfo userDetail) throws UnknownHostException {
+		return commonService.updateUser(userDetail);
+	}
+
 	@GetMapping("/getUserById/{userId}")
-	@PreAuthorize("hasAuthority('USER')")
-	public CommonResponse<UserInfo> getUserById(@PathVariable("userId") Integer userId){
+	public CommonResponse<UserInfo> getUserById(@PathVariable("userId") Integer userId) {
 		return commonService.getUserById(userId);
 	}
-	
+
 	@DeleteMapping("/deleteUserById/{userId}")
-	@PreAuthorize("hasAuthority('USER')")
-	public CommonResponse<UserInfo> deleteUserById(@PathVariable("userId") Integer userId){
+	public CommonResponse<UserInfo> deleteUserById(@PathVariable("userId") Integer userId) {
 		return commonService.deleteUserById(userId);
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }
