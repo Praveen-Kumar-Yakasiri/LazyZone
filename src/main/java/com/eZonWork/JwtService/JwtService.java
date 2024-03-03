@@ -9,6 +9,8 @@ import java.util.function.Function;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.eZonWork.Utility.AuthResponse;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,21 +20,48 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtService {
 	
-	private final static String SECRETE_KEY="5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
-	private final static String ISSUER="Praveen";
+	/* author:: PRAVEEN KUMAR
+	 * FOR JWT TOKEN GENERATION
+	 *  */
 	
-	public String generateToken(String userName) {
-		return createToken(new HashMap<>(),userName);
+	private final static String SECRETE_KEY="6c451a396fd3b44c57dd8e9d19be20504981af4b06c20873903400ede0e725cc378899cd42dfa62faa7f343bcebabf4fdca394549d2e7a5d66b5cb3dba43f507";
+	private final static String ISSUER="Praveen Kumar Yakasiri";
+	
+	public AuthResponse generateTokens(String userName)
+	{
+		AuthResponse authResponse=new AuthResponse();
+		authResponse.setAccessToken(this.generateAccessToken(userName));
+		authResponse.setRefreshToken(this.generateRefreshToken(userName));
+		return authResponse;
+	}
+	
+	public String generateAccessToken(String userName) {
+		return createAccessToken(new HashMap<>(),userName);
 	}
 
-	public String createToken(HashMap<String,Object> claims, String userName) {
+	public String createAccessToken(HashMap<String,Object> claims, String userName) {
 		// TODO Auto-generated method stub
 		return Jwts.builder()
 				.setIssuer(ISSUER)
 				.setSubject(userName)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis()+1000*60*3))
-				.signWith(getSignKey(),SignatureAlgorithm.HS256)
+				.signWith(getSignKey(),SignatureAlgorithm.HS512)
+				.compact();
+	}
+	
+	public String generateRefreshToken(String userName) {
+		return createRefreshToken(new HashMap<>(),userName);
+	}
+
+	public String createRefreshToken(HashMap<String,Object> claims, String userName) {
+		// TODO Auto-generated method stub
+		return Jwts.builder()
+				.setIssuer(ISSUER)
+				.setSubject(userName)
+				.setIssuedAt(new Date(System.currentTimeMillis()))
+				.setExpiration(new Date(System.currentTimeMillis()+1000*60*5))
+				.signWith(getSignKey(),SignatureAlgorithm.HS512)
 				.compact();
 	}
 	
