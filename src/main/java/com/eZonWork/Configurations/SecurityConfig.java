@@ -19,51 +19,46 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.eZonWork.JwtFilter.JwtFilter;
 
-
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-	
+
 	@Autowired
 	private JwtFilter filter;
-	
-	
-	
-	
- 
+
 	@Bean
 	public UserDetailsService detailsService() {
 		return new UserDetailsServiceInfo();
 	}
-	
+
 	@Bean
 	public PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
 		return configuration.getAuthenticationManager();
 	}
-	
+
 	@Bean
 	public AuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider provider=new DaoAuthenticationProvider();	
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 		provider.setUserDetailsService(detailsService());
 		provider.setPasswordEncoder(encoder());
 		return provider;
 	}
-	
+
 	@Bean
 	public SecurityFilterChain chain(HttpSecurity security) throws Exception {
-		return security.csrf(csrf->csrf.disable()).cors(cors->cors.disable())
-				.authorizeHttpRequests(auth->auth.requestMatchers("/log/login","/common/saveOrUpdateUser").permitAll()
-						.anyRequest().authenticated())
+		return security.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
+				.authorizeHttpRequests(
+						auth -> auth.requestMatchers("/log/login", "/common/saveUser").permitAll()
+								.anyRequest().authenticated())
 				.exceptionHandling(ex -> ex.disable())
-				.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authenticationProvider(authenticationProvider())			
-				.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
-				.build();
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.authenticationProvider(authenticationProvider())
+				.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class).build();
 	}
 }

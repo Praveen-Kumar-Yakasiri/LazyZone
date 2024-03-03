@@ -22,41 +22,42 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
-	
+
 	@Autowired
 	private JwtService jwtService;
-	
+
 	@Autowired
 	private UserDetailsServiceInfo info;
-	
-	
-	@Autowired @Qualifier("handlerExceptionResolver") private HandlerExceptionResolver exceptionResolver;
-    
-	
+
+	@Autowired
+	@Qualifier("handlerExceptionResolver")
+	private HandlerExceptionResolver exceptionResolver;
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		String token=null;
-		String userName=null;
-		String auth=request.getHeader("Authorization");
+		String token = null;
+		String userName = null;
+		String auth = request.getHeader("Authorization");
 		try {
-		if(auth!=null && auth.startsWith("Bearer ")) {
-			token=auth.substring(7);
-			
-			userName=jwtService.getUserFromToken(token);
-			if(userName!=null && SecurityContextHolder.getContext().getAuthentication()==null) {
-				UserDetails details=info.loadUserByUsername(userName);
-				
-				if(jwtService.isTokenValid(token, details)) {
-					
-					UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken(userName, null,details.getAuthorities());
-					authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-					SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+			if (auth != null && auth.startsWith("Bearer ")) {
+				token = auth.substring(7);
+
+				userName = jwtService.getUserFromToken(token);
+				if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+					UserDetails details = info.loadUserByUsername(userName);
+					request.setAttribute("authrole", details.getAuthorities());
+					if (jwtService.isTokenValid(token, details)) {
+
+						UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+								userName, null, details.getAuthorities());
+						authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+						SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+					}
 				}
 			}
-		}
-		filterChain.doFilter(request, response);
-		}catch(Exception exception) {
+			filterChain.doFilter(request, response);
+		} catch (Exception exception) {
 			exceptionResolver.resolveException(request, response, null, exception);
 		}
 	}

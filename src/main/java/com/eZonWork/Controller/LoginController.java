@@ -1,8 +1,5 @@
 package com.eZonWork.Controller;
 
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,27 +18,28 @@ import com.eZonWork.Utility.CommonResponse;
 @RestController
 @RequestMapping("/log")
 public class LoginController {
-	
+
 	@Autowired
 	private AuthenticationManager manager;
-	
+
 	@Autowired
 	private JwtService jwtService;
-	
-	
+
 	@PostMapping("/login")
-	public CommonResponse<AuthResponse> login(@RequestBody UserLogin login){
+	public CommonResponse<AuthResponse> login(@RequestBody UserLogin login) {
 //		String token=null;
-		AuthResponse authResponse=null;
-		Authentication authentication=manager.authenticate(new UsernamePasswordAuthenticationToken(login.getUserName(), login.getPassWord()));
-		if(authentication.isAuthenticated()) {
+		AuthResponse authResponse = null;
+		Authentication authentication = manager
+				.authenticate(new UsernamePasswordAuthenticationToken(login.getUserName(), login.getPassWord()));
+		if (authentication.isAuthenticated()) {
 //			token=jwtService.generateToken(login.getUserName());
-			 authResponse=jwtService.generateTokens(login.getUserName());
-			 authResponse.setAccessToken(authResponse.getAccessToken());
-			 authResponse.setAccessToken(authResponse.getRefreshToken());
+			authResponse = jwtService.generateTokens(login.getUserName());
+			authResponse.setAccessToken(authResponse.getAccessToken());
+			authResponse.setAccessToken(authResponse.getRefreshToken());
 		}
-				
-		return CommonResponse.of(CommonConstant.SuccessCode, CommonConstant.Success,"Token Generated Successfully", authResponse);
+
+		return CommonResponse.of(CommonConstant.SuccessCode, CommonConstant.Success, "Token Generated Successfully",
+				authResponse);
 	}
 
 }
