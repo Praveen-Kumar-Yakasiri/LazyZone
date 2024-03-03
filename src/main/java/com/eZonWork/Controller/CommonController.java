@@ -56,6 +56,7 @@ public class CommonController {
 	}
 	
 	@DeleteMapping("/deleteUserById/{userId}")
+	@PreAuthorize("hasAuthority('USER')")
 	public CommonResponse<UserInfo> deleteUserById(@PathVariable("userId") Integer userId){
 		return commonService.deleteUserById(userId);
 	}
