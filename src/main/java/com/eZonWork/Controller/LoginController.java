@@ -29,7 +29,7 @@ public class LoginController {
 	private JwtService jwtService;
 	
 	
-	@PostMapping("/loginUser")
+	@PostMapping("/login")
 	public CommonResponse<AuthResponse> login(@RequestBody UserLogin login){
 //		String token=null;
 		AuthResponse authResponse=null;
