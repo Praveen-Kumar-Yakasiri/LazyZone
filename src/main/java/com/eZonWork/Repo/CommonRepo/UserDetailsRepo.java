@@ -1,11 +1,11 @@
-package com.eZonWork.Repo;
+package com.eZonWork.Repo.CommonRepo;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.eZonWork.Model.UserInfo;
+import com.eZonWork.Model.CommonEntity.UserInfo;
 
 public interface UserDetailsRepo  extends JpaRepository<UserInfo, Integer>{
 

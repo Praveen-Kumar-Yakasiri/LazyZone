@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eZonWork.Dto.UserLogin;
 import com.eZonWork.JwtService.JwtService;
+import com.eZonWork.Model.LoginEntity.UserLogin;
 import com.eZonWork.Utility.AuthResponse;
 import com.eZonWork.Utility.CommonConstant;
 import com.eZonWork.Utility.CommonResponse;

@@ -1,4 +1,4 @@
-package com.eZonWork.Model;
+package com.eZonWork.Model.CommonEntity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 

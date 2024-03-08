@@ -1,4 +1,4 @@
-package com.eZonWork.Service;
+package com.eZonWork.Service.Impl;
 
 import java.net.UnknownHostException;
 import java.util.Date;
@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.eZonWork.Model.UserInfo;
-import com.eZonWork.Repo.UserDetailsRepo;
+import com.eZonWork.Model.CommonEntity.UserInfo;
+import com.eZonWork.Repo.CommonRepo.UserDetailsRepo;
+import com.eZonWork.Service.CommonService;
 import com.eZonWork.Utility.CommonConstant;
 import com.eZonWork.Utility.CommonResponse;
 import com.eZonWork.Utility.CommonUtility;

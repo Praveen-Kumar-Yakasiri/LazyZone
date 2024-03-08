@@ -23,6 +23,8 @@ public class CommonConstant {
 	
 	public final static String UnauthorizedCode="401";
 	
+	public final static String FORBIDDEN="403";
+	
 	public final static String JWTEXPIRATION="JWT Token Is Expired. Please Login Agian.....!";
 	
 	
