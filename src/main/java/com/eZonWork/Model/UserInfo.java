@@ -33,6 +33,10 @@ public class UserInfo {
 	private String passWord;
 
 	private String mobileNo;
+	
+	private String emaildId;
+	
+	private String address;
 
 	private String crtUser;
 
