@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.eZonWork.Model.UserInfo;
-import com.eZonWork.Repo.UserDetailsRepo;
+import com.eZonWork.Model.CommonEntity.UserInfo;
+import com.eZonWork.Repo.CommonRepo.UserDetailsRepo;
 
 @Component
 public class UserDetailsServiceInfo implements UserDetailsService {

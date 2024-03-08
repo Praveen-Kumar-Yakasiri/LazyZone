@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eZonWork.Model.UserInfo;
+import com.eZonWork.Model.CommonEntity.UserInfo;
 import com.eZonWork.Service.CommonService;
 import com.eZonWork.Utility.CommonResponse;
 

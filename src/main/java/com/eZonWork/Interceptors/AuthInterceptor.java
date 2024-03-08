@@ -16,7 +16,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 		try {
 
 			String path = request.getRequestURI();
-			if ( path.equals("/common/getAllRegister")|| path.equals("/common/updateUser")|| path.equals("/common/deleteUserById/")) {
+			if ( path.equals("/common/getAllRegister")|| path.equals("/common/updateUser")|| path.equals("/common/deleteUserById/") || path.startsWith("/common/getUserById/")) {
 				if (!userHasAuthority(request, "ADMIN")) {
 					flag=false;
 						if (!userHasAuthority(request, "USER")) {

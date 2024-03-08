@@ -3,7 +3,7 @@ package com.eZonWork.Service;
 import java.net.UnknownHostException;
 import java.util.List;
 
-import com.eZonWork.Model.UserInfo;
+import com.eZonWork.Model.CommonEntity.UserInfo;
 import com.eZonWork.Utility.CommonResponse;
 
 public interface CommonService {
