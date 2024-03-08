@@ -35,7 +35,7 @@ public class LoginController {
 //			token=jwtService.generateToken(login.getUserName());
 			authResponse = jwtService.generateTokens(login.getUserName());
 			authResponse.setAccessToken(authResponse.getAccessToken());
-			authResponse.setAccessToken(authResponse.getRefreshToken());
+			authResponse.setRefreshToken(authResponse.getRefreshToken());
 		}
 
 		return CommonResponse.of(CommonConstant.SuccessCode, CommonConstant.Success, "Token Generated Successfully",

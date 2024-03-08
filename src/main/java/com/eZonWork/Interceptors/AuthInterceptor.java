@@ -21,24 +21,22 @@ public class AuthInterceptor implements HandlerInterceptor {
 					flag=false;
 						if (!userHasAuthority(request, "USER")) {
 							flag=false;
-//							return false;
 						}else {
 							flag=true;
 						}				
 					
-//					return false;
+
 				}
 			} 
 			else if (path.equals("/common/updateUser") || path.startsWith("/common/getUserById/")) {
 			if (!userHasAuthority(request, "USER")) {
 					flag=false;
-//					return false;
+
 			}
 		}
 		} catch (Exception e) {
 			flag=false;
-//			e.printStackTrace();
-//			return false;
+
 		}
 		return flag;
 	}

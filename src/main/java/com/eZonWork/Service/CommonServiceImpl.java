@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,12 +26,13 @@ public class CommonServiceImpl implements CommonService {
 	public CommonResponse<List<UserInfo>> getAllRegister() {
 		try {
 			List<UserInfo> infos = detailsRepo.findByStatus(CommonConstant.IS_ACTIVE);
-			return CommonResponse.of(CommonConstant.SuccessCode, CommonConstant.Success, "Data Fetched Successfully", infos);
-		}catch(Exception ex) {
+			return CommonResponse.of(CommonConstant.SuccessCode, CommonConstant.Success, "Data Fetched Successfully",
+					infos);
+		} catch (Exception ex) {
 			return CommonResponse.of(CommonConstant.ErrorCode, CommonConstant.Error, "Data Fetched UnSuccessful",
 					ex.getMessage());
 		}
-		
+
 	}
 
 	@Override
@@ -99,20 +99,20 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public CommonResponse<UserInfo> deleteUserById(Integer userId) {
 		try {
-		UserInfo userInfo = detailsRepo.findById(userId).orElseThrow();
-		if(userInfo!=null) {
-			userInfo.setStatus(CommonConstant.IS_DEAVTIVE);
-			userInfo.setLstDate(new Date());
-			userInfo.setLstIp(CommonUtility.getIpAddress());
-			userInfo.setLstUser(userInfo.getUserName());
+			UserInfo userInfo = detailsRepo.findById(userId).orElseThrow();
+			if (userInfo != null) {
+				userInfo.setStatus(CommonConstant.IS_DEAVTIVE);
+				userInfo.setLstDate(new Date());
+				userInfo.setLstIp(CommonUtility.getIpAddress());
+				userInfo.setLstUser(userInfo.getUserName());
+			}
+			detailsRepo.save(userInfo);
+			return CommonResponse.of(CommonConstant.SuccessCode, CommonConstant.Success, "Data Deleted Successfully");
+		} catch (Exception ex) {
+			return CommonResponse.of(CommonConstant.ErrorCode, CommonConstant.Error, "Data Deleted UnSuccessful",
+					ex.getMessage());
 		}
-		detailsRepo.save(userInfo);
-		return CommonResponse.of(CommonConstant.SuccessCode, CommonConstant.Success, "Data Deleted Successfully");
-		}catch(Exception ex)
-		{
-			return CommonResponse.of(CommonConstant.ErrorCode, CommonConstant.Error, "Data Deleted UnSuccessful",ex.getMessage());
-		}
-		
+
 	}
 
 }
