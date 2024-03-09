@@ -1,4 +1,4 @@
-package com.eZonWork.Model.LoginEntity;
+package com.eZonWork.Dto.LoginDto;
 
 
 import lombok.AllArgsConstructor;

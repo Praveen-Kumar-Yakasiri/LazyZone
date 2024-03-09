@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,9 @@ public class RoleMasterBo{
 	
 	private String roleName;
 	
-	private Integer roleid;
+	private Integer roleId;
+	
+	private String status;
 	
     private String crtUser;
 	
@@ -39,5 +42,8 @@ public class RoleMasterBo{
 	private String lstUpdIp;
 	
 	private Date lstDate;
+	
+	@Transient
+	private String crudFlag;
 	
 }

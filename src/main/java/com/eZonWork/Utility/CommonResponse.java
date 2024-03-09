@@ -41,9 +41,8 @@ public class CommonResponse<T> {
 	        response.setStatusMessage(statusMessage);
 	        response.setMessage(message);
 	        response.setData(data);
-	        if(!statusCode.equals("200")) {
+	       
 	        	response.setTimeStamp(CommonUtility.timeStamp());
-	        }
 	        
 	        return response;
 	    }

@@ -41,7 +41,9 @@ public class CommonConstant {
 	public final static SimpleDateFormat DATE_FORMATER_WITHOUT_TIME=new SimpleDateFormat("dd-MM-yyyy");
 	
 	
-	
+	public final static String FETCHED="Details Fetched Successfully..!";
+	public final static String SAVED="Details Saved Successfully..!";
+	public final static String DELETED="Details Deleted Successfully..!";
 
 	
 	
