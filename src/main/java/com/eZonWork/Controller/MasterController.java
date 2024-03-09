@@ -41,35 +41,16 @@ public class MasterController {
 	
 	@PostMapping("/saveOrUpdateRole")
 	public CommonResponse<Object> saveOrUpdateRole(@RequestBody RoleMasterBo roleMasterBo,HttpServletRequest request) throws UnknownHostException{
-		if(roleMasterBo.getCrudFlag().equals(CommonConstant.Save))
-		{
-			roleMasterBo.setCrtDate(new Date());
-			roleMasterBo.setCrtIp(CommonUtility.getIpAddress());
-			roleMasterBo.setCrtUser(CommonUtility.getUser(request));
-			roleMasterBo.setStatus(CommonConstant.IS_ACTIVE);
-		}else {
-			roleMasterBo.setCrtDate(new Date());
-			roleMasterBo.setCrtIp(CommonUtility.getIpAddress());
-			roleMasterBo.setCrtUser(CommonUtility.getUser(request));
-			roleMasterBo.setLstDate(new Date());
-			roleMasterBo.setLstUpdIp(CommonUtility.getIpAddress());
-			roleMasterBo.setLstUpdUser(CommonUtility.getUser(request));
-			roleMasterBo.setStatus(CommonConstant.IS_ACTIVE);
-		}
-		roleMasterBo=masterService.saveOrUpdateRole(roleMasterBo);
+		
+		roleMasterBo=masterService.saveOrUpdateRole(roleMasterBo,request);
 		return CommonResponse.of(CommonConstant.SuccessCode, CommonConstant.Success,CommonConstant.SAVED, roleMasterBo);
 	}
 	
 	
 	@PostMapping("/deleteRoles/{roleId}")
-	public CommonResponse<Object> deleteRoles(@PathVariable Integer roleId) throws UnknownHostException{
+	public CommonResponse<Object> deleteRoles(@PathVariable Integer roleId,HttpServletRequest request) throws UnknownHostException{
 		RoleMasterBo roleMasterBo=new RoleMasterBo();
-		roleMasterBo.setId(roleId);
-		roleMasterBo.setLstDate(new Date());
-		roleMasterBo.setLstUpdIp(CommonUtility.getIpAddress());
-		roleMasterBo.setLstUpdUser(null);
-		roleMasterBo.setStatus(CommonConstant.IS_DEAVTIVE);
-		roleMasterBo=masterService.deleteRoles(roleMasterBo);
+		roleMasterBo=masterService.deleteRoles(roleId,request);
 		return CommonResponse.of(CommonConstant.SuccessCode, CommonConstant.Success,CommonConstant.DELETED, roleMasterBo);
 	}
 	
